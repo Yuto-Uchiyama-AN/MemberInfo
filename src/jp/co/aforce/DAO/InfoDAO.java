@@ -4,22 +4,21 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
-import java.util.List;
 
 import jp.co.aforce.bean.Info;
 import jp.co.aforce.servret.Member;
 
 public class InfoDAO extends DAO {
 
-	public List<Info> search(String keyword)
+	public ArrayList<Info> search(String member_id)
 			throws Exception {
-		List<Info> list = new ArrayList<>();
+		ArrayList<Info> list = new ArrayList<>();
 
 		Connection con = getConnection();
 
 		PreparedStatement st = con.prepareStatement(
-				"select * from Info where member_id = ?");
-		st.setString(1, "%" + keyword + "%");
+				"select * from menber_info where member_id like '%" + member_id + "%'");
+		st.setString(1, "%" + member_id + "%");
 		ResultSet rs = st.executeQuery();
 
 		while (rs.next()) {
@@ -102,4 +101,6 @@ public class InfoDAO extends DAO {
 		return count;
 	}
 
-}
+
+	}
+
